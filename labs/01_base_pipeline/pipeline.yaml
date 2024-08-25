@@ -1,6 +1,17 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:  
-  name: <place-name-here>
+  name: hello-pipeline
 spec:
+  params:
+    - name: message
+      type: string
+      description: "The message to pass to the echo task"
   tasks:
+    - name: hello
+      taskRef:
+        name: echo
+      params:
+        - name: message
+          value: "$(params.message)"
+
